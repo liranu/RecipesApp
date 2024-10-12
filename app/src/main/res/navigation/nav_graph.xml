@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/recipesFragment">
+
+    <fragment
+        android:id="@+id/recipesFragment"
+        android:name="com.example.cal_project2.ui.recipes.RecipesFragment"
+        android:label="Characters"
+        tools:layout="@layout/fragment_recipes" >
+
+        <action
+            android:id="@+id/action_recipesFragment_to_recipeDetailsFragment"
+            app:destination="@id/recipeDetailsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/recipeDetailsFragment"
+        android:name="com.example.cal_project2.ui.recipe_details.RecipeDetailsFragment"
+        android:label="Recipe_Details"
+        tools:layout="@layout/fragment_recipe_details" >
+
+        <argument
+            android:name="name"
+            app:argType="string"
+            app:nullable="true"/>
+
+        <argument
+            android:name="image"
+            app:argType="string"
+            app:nullable="true"/>
+
+        <argument
+            android:name="fats"
+            app:argType="string"
+            app:nullable="true"/>
+
+        <argument
+            android:name="calories"
+            app:argType="string"
+            app:nullable="true"/>
+
+        <argument
+            android:name="carbos"
+            app:argType="string"
+            app:nullable="true"/>
+        <argument
+            android:name="description"
+            app:argType="string"
+            app:nullable="true"/>
+
+
+    </fragment>
+
+
+
+</navigation>
