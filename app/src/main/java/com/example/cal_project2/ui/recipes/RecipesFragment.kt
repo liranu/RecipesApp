@@ -43,8 +43,9 @@ class RecipesFragment : BaseFragment<FragmentRecipesBinding>(FragmentRecipesBind
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 recipesViewModel.recipes.collect { result ->
                     when (result) {
-                        is Result.Loading -> binding.progressBar.show()
-
+                        is Result.Loading ->
+                            binding.progressBar.show()
+                        
                         is Result.Success -> {
                             recipesAdapter.updateItems(result.data)
                             binding.progressBar.remove()
