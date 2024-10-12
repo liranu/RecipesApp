@@ -1,7 +1,6 @@
 package com.example.cal_project2.ui.recipes
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.biometric.BiometricPrompt
@@ -17,8 +16,8 @@ import com.example.cal_project2.model.RecipeModel
 import com.example.cal_project2.sealed.Result
 import com.example.cal_project2.ui.base.BaseFragment
 import com.example.cal_project2.ui.recipes.adapter.RecipesAdapter
-import com.example.cal_project2.utils.ViewExtentions.remove
-import com.example.cal_project2.utils.ViewExtentions.show
+import com.example.cal_project2.utils.ViewExtensions.remove
+import com.example.cal_project2.utils.ViewExtensions.show
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -32,7 +31,6 @@ class RecipesFragment : BaseFragment<FragmentRecipesBinding>(FragmentRecipesBind
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setHasOptionsMenu(true)
         setupRecyclerView()
         setupJob()
     }
@@ -45,7 +43,7 @@ class RecipesFragment : BaseFragment<FragmentRecipesBinding>(FragmentRecipesBind
                     when (result) {
                         is Result.Loading ->
                             binding.progressBar.show()
-                        
+
                         is Result.Success -> {
                             recipesAdapter.updateItems(result.data)
                             binding.progressBar.remove()
@@ -66,7 +64,7 @@ class RecipesFragment : BaseFragment<FragmentRecipesBinding>(FragmentRecipesBind
     }
 
     private fun setupRecyclerView() = with(binding.recipesRecyclerView) {
-        recipesAdapter = RecipesAdapter(emptyList())
+        recipesAdapter = RecipesAdapter(mutableListOf())
         recipesAdapter.onItemClick = { onItemClickListener(it) }
         adapter = recipesAdapter
         layoutManager = LinearLayoutManager(requireActivity())
@@ -76,7 +74,6 @@ class RecipesFragment : BaseFragment<FragmentRecipesBinding>(FragmentRecipesBind
         recipeModel?.let { recipe ->
             authenticateAndShowDetails(recipe)
         }
-
     }
 
     private fun authenticateAndShowDetails(recipe: RecipeModel) {
@@ -94,7 +91,6 @@ class RecipesFragment : BaseFragment<FragmentRecipesBinding>(FragmentRecipesBind
                             recipe.description
                         )
                     findNavController().navigate(direction)
-
                 }
 
                 override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {

@@ -4,7 +4,6 @@ import com.example.cal_project2.model.RecipeModel
 import retrofit2.http.GET
 
 interface RecipesApi {
-
-    @GET("recipes.json")
+    @GET("android-test/recipes.json")
     suspend fun getRecipes(): List<RecipeModel>
 }

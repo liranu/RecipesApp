@@ -11,7 +11,6 @@ class RecipesRepositoryImpl @Inject constructor(
     private val recipesApi: RecipesApi
 ) : RecipesRepository {
 
-
     override suspend fun getRecipes(): Flow<Result<List<RecipeModel>>> = flow {
         emit(Result.Loading)
         try {

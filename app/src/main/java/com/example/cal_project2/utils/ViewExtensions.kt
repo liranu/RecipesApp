@@ -2,7 +2,7 @@ package com.example.cal_project2.utils
 
 import android.view.View
 
-object ViewExtentions {
+object ViewExtensions {
 
     fun View.visible(isVisible: Boolean, nonVisibleMode: Int) {
         this.visibility =  if (isVisible) View.VISIBLE else nonVisibleMode

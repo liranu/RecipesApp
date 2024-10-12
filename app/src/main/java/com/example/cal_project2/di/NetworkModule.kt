@@ -1,7 +1,6 @@
 package com.example.cal_project2.di
 
 import android.content.Context
-import com.example.cal_project2.data.remote.api.MockApiService
 import com.example.cal_project2.data.remote.api.RecipesApi
 import com.example.cal_project2.utils.Constants.Base_url
 import com.example.cal_project2.utils.NetworkConnectionInterceptor
@@ -45,17 +44,15 @@ class NetworkModule {
     @Singleton
     fun provideRetrofit(gson: Gson, okHttpClient: OkHttpClient): Retrofit =
         Retrofit.Builder().apply {
-            baseUrl("https://example.com/")
+            baseUrl(Base_url)
             addConverterFactory(GsonConverterFactory.create(gson))
             client(okHttpClient)
         }.build()
 
-
     @Provides
     @Singleton
-    fun provideApiService(@ApplicationContext context: Context): RecipesApi =
-        MockApiService(context)  // Provide the mock service
-
+    fun provideApiService(retrofit: Retrofit): RecipesApi =
+        retrofit.create(RecipesApi::class.java)
 
     @Provides
     @Singleton
@@ -65,6 +62,4 @@ class NetworkModule {
             .serializeNulls()
             .setLenient()
             .create()
-
-
 }

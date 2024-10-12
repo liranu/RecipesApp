@@ -9,7 +9,7 @@ import com.example.cal_project2.ui.base.BaseViewHolder
 import javax.inject.Inject
 
 class RecipesAdapter @Inject constructor(
-    private var recipes: List<RecipeModel>
+    private var recipes: MutableList<RecipeModel>
 ) : RecyclerView.Adapter<BaseViewHolder<RecipeModel>>() {
 
     var onItemClick: ((item: RecipeModel?) -> Unit)? = null
@@ -27,8 +27,11 @@ class RecipesAdapter @Inject constructor(
     }
 
     fun updateItems(newItems: List<RecipeModel>) {
-        recipes = newItems
-        notifyDataSetChanged()
+        val oldSize = recipes.size
+        recipes.clear()
+        recipes.addAll(newItems)
+        notifyItemRangeRemoved(0, oldSize)
+        notifyItemRangeInserted(0, recipes.size)
     }
 
 }
